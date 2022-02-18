@@ -2,6 +2,7 @@
   <div class="full">
     <Fio lastName="Заболотский" firstName="Александр" middleName="Николаевич"></Fio>
     <Vyatsu class="full" :results="results"></Vyatsu>
+    <Autorization></Autorization>
   </div>
 </template>
 
@@ -10,7 +11,7 @@ import Vue from "vue";
 import axios from "axios";
 import Fio from "../../fio/src/components/Fio.vue";
 import Vyatsu from "../../vyatsu/src/components/Vyatsu.vue";
-// import Autorization from "../../autorization/src/components/Autorization.vue";
+import Autorization from "../../autorization/src/components/Autorization.vue";
 
 const config = {
   headers: {
@@ -29,6 +30,7 @@ export default Vue.extend({
   components: {
     Fio,
     Vyatsu,
+    Autorization,
   },
   data() {
     return { results: [] };
