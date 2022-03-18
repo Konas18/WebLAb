@@ -43,15 +43,15 @@ export default {
       const password: HTMLInputElement = document.getElementById("password") as HTMLInputElement;
 
       const config = {
-        url: "https://2febd279-e9d3-47fc-be42-4492df8eb673.mock.pstmn.io/login1",
-        // url: `https://2febd279-e9d3-47fc-be42-4492df8eb673.mock.pstmn.io/login2?login=${log.value}&?password=${password.value}`,
+        // url: "https://2febd279-e9d3-47fc-be42-4492df8eb673.mock.pstmn.io/login1",
+        url: `https://2febd279-e9d3-47fc-be42-4492df8eb673.mock.pstmn.io/login2?login=${log.value}&password=${password.value}`,
       };
-      const data = {
-        login: log.value,
-        password: password.value,
-      };
+      // const data = {
+      //   login: log.value,
+      //   password: password.value,
+      // };
       axios
-        .post(config.url, data, { headers: { "x-mock-match-request-body": true } })
+        .post(config.url, { headers: { "x-mock-match-request-body": true } })
         .then((response) => {
           console.log(response.data);
           if (response.data) {
