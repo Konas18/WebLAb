@@ -1,8 +1,9 @@
 <template>
   <div class="full">
     <Fio lastName="Заболотский" firstName="Александр" middleName="Николаевич"></Fio>
-    <Vyatsu class="full" :results="results"></Vyatsu>
-    <Autorization></Autorization>
+    <Vyatsu class="full mt20" :results="results"></Vyatsu>
+    <Autorization class="mt20"></Autorization>
+    <Registration class="mt20"></Registration>
   </div>
 </template>
 
@@ -12,6 +13,7 @@ import axios from "axios";
 import Fio from "../../fio/src/components/Fio.vue";
 import Vyatsu from "../../vyatsu/src/components/Vyatsu.vue";
 import Autorization from "../../autorization/src/components/Autorization.vue";
+import Registration from "../../registration/src/components/Registration.vue";
 
 const config = {
   headers: {
@@ -31,6 +33,7 @@ export default Vue.extend({
     Fio,
     Vyatsu,
     Autorization,
+    Registration,
   },
   data() {
     return { results: [] };
@@ -45,3 +48,8 @@ export default Vue.extend({
   },
 });
 </script>
+<style>
+.mt20 {
+  margin-top: 20px;
+}
+</style>
