@@ -4,20 +4,44 @@
     <div>
       <div class="imput-desk">
         <div class="flex text-imput">
-          <h1 class="mr10 mt8 mb8">Login</h1>
-          <input id="login" class="input" type="text" />
+          <h3 class="mr10 mt8 mb8">E-mail</h3>
+          <input id="e-mail" class="input" type="text" />
         </div>
         <div class="flex text-imput">
-          <h1 class="mr10 mt8 mb8">Password</h1>
-          <input id="password" class="input" type="password" />
+          <h3 class="mr10 mt8 mb8">Login</h3>
+          <input id="reglogin" class="input" type="text" />
+        </div>
+        <div class="flex text-imput">
+          <h3 class="mr10 mt8 mb8">Password</h3>
+          <input id="password1" class="input" type="password" />
+        </div>
+        <div class="flex text-imput">
+          <h3 class="mr10 mt8 mb8">Repeat the password</h3>
+          <input id="password2" class="input" type="password" />
         </div>
       </div>
       <div class="imput-mobil">
         <div class="flex text-imput">
-          <input placeholder="Login" class="input mr10 mt8 mb8" type="text" />
+          <input id="e-mail2" placeholder="E-mail" class="input mr10 mt8 mb8" type="text" />
         </div>
         <div class="flex text-imput">
-          <input placeholder="Password" class="input mr10 mt8 mb8" type="password" />
+          <input id="reglogin2" placeholder="Login" class="input mr10 mt8 mb8" type="text" />
+        </div>
+        <div class="flex text-imput">
+          <input
+            id="password22"
+            placeholder="Password"
+            class="input mr10 mt8 mb8"
+            type="password"
+          />
+        </div>
+        <div class="flex text-imput">
+          <input
+            id="password22"
+            placeholder="Repeat the password"
+            class="input mr10 mt8 mb8"
+            type="password"
+          />
         </div>
       </div>
       <div class="checkbox-imput">
@@ -25,7 +49,7 @@
         <label class="">Запомнить</label>
       </div>
       <div id="button-div">
-        <button v-on:click="signIn" class="button-3" role="button">Login</button>
+        <button v-on:click="signOn" class="button-3" role="button">Registration</button>
       </div>
     </div>
   </section>
@@ -33,34 +57,50 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-
 import axios from "axios";
 
 export default {
   methods: {
-    signIn() {
-      const log: HTMLInputElement = document.getElementById("login") as HTMLInputElement;
-      const password: HTMLInputElement = document.getElementById("password") as HTMLInputElement;
-
+    signOn() {
+      const email: HTMLInputElement = document.getElementById("e-mail") as HTMLInputElement;
+      const log: HTMLInputElement = document.getElementById("reglogin") as HTMLInputElement;
+      const pass1: HTMLInputElement = document.getElementById("password1") as HTMLInputElement;
+      const pass2: HTMLInputElement = document.getElementById("password1") as HTMLInputElement;
       const config = {
-        url: "https://2febd279-e9d3-47fc-be42-4492df8eb673.mock.pstmn.io/login1",
-        // url: `https://2febd279-e9d3-47fc-be42-4492df8eb673.mock.pstmn.io/login2?login=${log.value}&?password=${password.value}`,
+        url: "https://2febd279-e9d3-47fc-be42-4492df8eb673.mock.pstmn.io/registr",
       };
       const data = {
+        email: email.value,
         login: log.value,
-        password: password.value,
       };
+      if (email.value === "") {
+        alert("Введите почту!");
+        return;
+      }
+      if (log.value === "") {
+        alert("Введите логин!");
+        return;
+      }
+      if (pass1.value === "") {
+        alert("Введите пароль!");
+        return;
+      }
+      if (pass2.value !== pass1.value) {
+        alert("Пароли не совпадают!");
+        return;
+      }
       axios
         .post(config.url, data, { headers: { "x-mock-match-request-body": true } })
         .then((response) => {
           console.log(response.data);
           if (response.data) {
-            alert("Успешно!");
+            alert("Логин или почта заняты!");
           }
         })
         .catch((error) => {
           console.log(error);
-          alert("Неверный логин или пароль!");
+
+          alert("Успешно!");
         });
     },
   },
