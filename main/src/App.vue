@@ -4,6 +4,7 @@
     <Vyatsu class="full mt20" :results="results"></Vyatsu>
     <Autorization class="mt20"></Autorization>
     <Registration class="mt20"></Registration>
+    <Table class="mt20"></Table>
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import Fio from "../../fio/src/components/Fio.vue";
 import Vyatsu from "../../vyatsu/src/components/Vyatsu.vue";
 import Autorization from "../../autorization/src/components/Autorization.vue";
 import Registration from "../../registration/src/components/Registration.vue";
+import Table from "../../table/src/components/Table.vue";
 
 const config = {
   headers: {
@@ -34,6 +36,7 @@ export default Vue.extend({
     Vyatsu,
     Autorization,
     Registration,
+    Table,
   },
   data() {
     return { results: [] };

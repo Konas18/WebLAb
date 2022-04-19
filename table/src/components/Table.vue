@@ -1,0 +1,247 @@
+<template>
+  <div class="conteiner">
+    <button type="button" v-on:click="GetList">Вывод таблицы</button>
+    <loader v-if="loading" />
+    <table v-else>
+      <tr>
+        <th>id</th>
+        <th>ФИО</th>
+        <th>Возраст</th>
+        <th>Почта</th>
+      </tr>
+      <tr v-on:click="FindById(item.id)" v-for="item in list" :key="item.id">
+        <td>{{ item.id }}</td>
+        <td>{{ item.fio }}</td>
+        <td>{{ item.age }}</td>
+        <td>{{ item.email }}</td>
+      </tr>
+    </table>
+    <div id="openModal" class="modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">Подробная информация</h3>
+            <a v-on:click="CloseModal" class="close">×</a>
+          </div>
+          <div class="modal-body">
+            <p>ID: {{ element.id }}</p>
+            <p>ФИО: {{ element.fio }}</p>
+            <p>Возраст: {{ element.age }}</p>
+            <p>Email: {{ element.email }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+/* eslint-disable */
+import axios from "axios";
+
+export default {
+  data: () => ({
+    loading: true,
+    list: [],
+    element: {},
+  }),
+  methods: {
+    GetList() {
+      const config = {
+        url: "https://1d649aad-2a15-459e-a433-77af16aa267c.mock.pstmn.io",
+      };
+      axios
+        .get(config.url)
+        .then((response) => {
+          console.log(response.data);
+          this.list = response.data;
+          this.loading = false;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    FindById(i: any) {
+      const config = {
+        url: "https://1d649aad-2a15-459e-a433-77af16aa267c.mock.pstmn.io",
+      };
+      axios
+        .get(config.url + "/?id=" + i)
+        .then((response) => {
+          console.log(response.data);
+          this.element = response.data;
+          const modal: HTMLDivElement = document.querySelector("#openModal");
+          modal.style.opacity = "1";
+          modal.style.pointerEvents = "auto";
+          modal.style.overflowY = "auto";
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    CloseModal() {
+      const modal: HTMLDivElement = document.querySelector("#openModal");
+      modal.style.opacity = "0";
+      modal.style.pointerEvents = "none";
+    },
+  },
+};
+</script>
+<style scroped>
+.conteiner {
+  margin: 0 auto;
+  text-align: center;
+}
+button {
+  appearance: none;
+  background-color: #2ea44f;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+table {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  font-size: 14px;
+  background: white;
+  max-width: 70%;
+  width: 70%;
+  border-collapse: collapse;
+  text-align: left;
+  margin: 0 auto;
+}
+th {
+  font-weight: normal;
+  color: #206b35;
+  border-bottom: 2px solid #206b35;
+  padding: 10px 8px;
+}
+td {
+  color: #000000;
+  padding: 9px 8px;
+  transition: 0.3s linear;
+  border-bottom: 1px solid #ccc;
+}
+tr:hover td {
+  background: #e8edff;
+  cursor: pointer;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1050;
+  opacity: 0;
+  -webkit-transition: opacity 200ms ease-in;
+  -moz-transition: opacity 200ms ease-in;
+  transition: opacity 200ms ease-in;
+  pointer-events: none;
+  margin: 0;
+  padding: 0;
+}
+.modal:target {
+  opacity: 1;
+  pointer-events: auto;
+  overflow-y: auto;
+}
+.modal-dialog {
+  position: relative;
+  width: auto;
+  margin: 10px;
+}
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 500px;
+    margin: 30px auto;
+  }
+}
+.modal-content {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  outline: 0;
+}
+@media (min-width: 768px) {
+  .modal-content {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  }
+}
+.modal-header {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 15px;
+  border-bottom: 1px solid #eceeef;
+}
+.modal-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 1.5;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+.close {
+  float: right;
+  font-family: sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: 0.5;
+  text-decoration: none;
+}
+.close:focus,
+.close:hover {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.75;
+}
+.modal-body {
+  margin-left: 10px;
+  text-align: left;
+}
+</style>
