@@ -1,5 +1,14 @@
 <template>
-  <section></section>
+  <section>
+    <div class="flex jef mt13 analytics-section">
+      <div class="ChartDiv">
+        <img class="ReportChart mt5" src="../assets/ReportChart.png" />
+      </div>
+      <div class="ChartDiv mr50">
+        <img class="ChartVisits mt5" src="../assets/ChartVisits.png" />
+      </div>
+    </div>
+  </section>
 </template>
 <style>
 .displayNone {
@@ -11,6 +20,9 @@
 .jbf {
   justify-content: space-between;
 }
+.jef {
+  justify-content: space-around;
+}
 .Logo {
   margin-left: 50px;
   display: flex;
@@ -18,6 +30,15 @@
 .icon {
   max-width: 26px;
   max-height: 26px;
+}
+.ChartDiv {
+  background-color: white;
+  border-radius: 17px;
+  max-height: 465px;
+}
+.ReportChart {
+}
+.ChartVisits {
 }
 .AnalyticText {
   font-size: 28px;
