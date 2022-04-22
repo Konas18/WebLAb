@@ -43,19 +43,24 @@ export default {
       const password: HTMLInputElement = document.getElementById("password") as HTMLInputElement;
 
       const config = {
-        url: "https://2febd279-e9d3-47fc-be42-4492df8eb673.mock.pstmn.io/login1",
-        // url: `https://2febd279-e9d3-47fc-be42-4492df8eb673.mock.pstmn.io/login2?login=${log.value}&?password=${password.value}`,
+        url: "http://localhost:8080/v1/user/login",
       };
       const data = {
         login: log.value,
         password: password.value,
       };
+      const headers = {
+        "Content-Type": "application/json",
+        "x-mock-match-request-body": "true",
+      };
       axios
-        .post(config.url, data, { headers: { "x-mock-match-request-body": true } })
+        .post(config.url, data, { headers })
         .then((response) => {
           console.log(response.data);
-          if (response.data) {
-            alert("Успешно!");
+          if (response.data.verification) {
+            alert("Вход прошёл успешно!");
+          } else {
+            alert("Неверный логин или пароль!");
           }
         })
         .catch((error) => {

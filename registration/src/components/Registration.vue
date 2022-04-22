@@ -67,11 +67,15 @@ export default {
       const pass1: HTMLInputElement = document.getElementById("password1") as HTMLInputElement;
       const pass2: HTMLInputElement = document.getElementById("password1") as HTMLInputElement;
       const config = {
-        url: "https://2febd279-e9d3-47fc-be42-4492df8eb673.mock.pstmn.io/registr",
+        url: "http://localhost:8080/v1/user/registration",
       };
       const data = {
         email: email.value,
         login: log.value,
+      };
+      const headers = {
+        "Content-Type": "application/json",
+        "x-mock-match-request-body": "true",
       };
       if (email.value === "") {
         alert("Введите почту!");
@@ -90,16 +94,17 @@ export default {
         return;
       }
       axios
-        .post(config.url, data, { headers: { "x-mock-match-request-body": true } })
+        .post(config.url, data, { headers })
         .then((response) => {
           console.log(response.data);
-          if (response.data) {
+          if (!response.data.verification) {
             alert("Логин или почта заняты!");
+          } else {
+            alert("Вы успешно зарегистрированы!");
           }
         })
         .catch((error) => {
           console.log(error);
-
           alert("Успешно!");
         });
     },

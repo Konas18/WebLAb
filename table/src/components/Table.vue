@@ -11,7 +11,7 @@
       </tr>
       <tr v-on:click="FindById(item.id)" v-for="item in list" :key="item.id">
         <td>{{ item.id }}</td>
-        <td>{{ item.fio }}</td>
+        <td>{{ item.name }}</td>
         <td>{{ item.age }}</td>
         <td>{{ item.email }}</td>
       </tr>
@@ -25,7 +25,7 @@
           </div>
           <div class="modal-body">
             <p>ID: {{ element.id }}</p>
-            <p>ФИО: {{ element.fio }}</p>
+            <p>ФИО: {{ element.name }}</p>
             <p>Возраст: {{ element.age }}</p>
             <p>Email: {{ element.email }}</p>
           </div>
@@ -48,7 +48,7 @@ export default {
   methods: {
     GetList() {
       const config = {
-        url: "https://1d649aad-2a15-459e-a433-77af16aa267c.mock.pstmn.io",
+        url: "http://localhost:8080/v1/user/list",
       };
       axios
         .get(config.url)
@@ -63,13 +63,21 @@ export default {
     },
     FindById(i: any) {
       const config = {
-        url: "https://1d649aad-2a15-459e-a433-77af16aa267c.mock.pstmn.io",
+        url: "http://localhost:8080/v1/user/find",
+        id: i,
+      };
+      const headers = {
+        "Content-Type": "application/json",
+        "x-mock-match-request-body": "true",
+      };
+      const id = {
+        id: i,
       };
       axios
-        .get(config.url + "/?id=" + i)
+        .post(config.url, id, { headers })
         .then((response) => {
           console.log(response.data);
-          this.element = response.data;
+          this.element = response.data.user;
           const modal: HTMLDivElement = document.querySelector("#openModal");
           modal.style.opacity = "1";
           modal.style.pointerEvents = "auto";
