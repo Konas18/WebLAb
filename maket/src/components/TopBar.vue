@@ -1,5 +1,28 @@
 <template>
   <section class="Topbar white-section">
+    <div>
+      <button class="NavigationBtn" v-on:click="openNavbarPanel">
+        <svg
+          width="50"
+          height="32"
+          viewBox="0 0 50 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g clip-path="url(#clip0_101_2)">
+            <rect width="40" height="32" fill="#FFFFFF" />
+            <rect y="1" width="40" height="6" rx="3" fill="#67748E" />
+            <rect y="13" width="40" height="6" rx="3" fill="#67748E" />
+            <rect y="25" width="30" height="6" rx="3" fill="#67748E" />
+          </g>
+          <defs>
+            <clipPath id="clip0_101_2">
+              <rect width="50" height="32" fill="white" />
+            </clipPath>
+          </defs>
+        </svg>
+      </button>
+    </div>
     <div class="SearchDiv flex mt5">
       <div class="flex ml20 mt13 mb13">
         <img class="SearchImg" src="../assets/FrameLupa.png" />
