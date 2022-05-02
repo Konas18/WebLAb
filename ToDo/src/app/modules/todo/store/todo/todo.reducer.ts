@@ -7,7 +7,6 @@ export const TODO_REDUCER_NODE = "todo";
 export interface TodoState {
   idIncrement: number;
   todoList: Todo[];
-
 }
 
 const initialState: TodoState = {
@@ -26,7 +25,7 @@ export const todoReducer = (state = initialState, action: TodoActions) => {
           {
             id: state.idIncrement,
             name: action.payload.name,
-            completed: false,
+            completed: false
           }
         ]
       };
