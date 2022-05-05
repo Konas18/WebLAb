@@ -2,6 +2,9 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { SourceMapDevToolPlugin } = require("webpack");
+
+
 module.exports = {
   mode:'development',
   entry: {
@@ -24,7 +27,7 @@ module.exports = {
   module:{
     rules:[   //загрузчик для ts
       {
-        test: /\.ts$/,
+        test: /\.js$/,
         enforce: 'pre',
         use: ['source-map-loader'],
       },
@@ -61,6 +64,9 @@ module.exports = {
     ]
   },
   plugins: [
+    new SourceMapDevToolPlugin({
+      filename: "[file].map"
+    }),
     new webpack.ContextReplacementPlugin(
       /angular(\\|\/)core/,
       path.resolve(__dirname, 'src'), // каталог с исходными файлами
