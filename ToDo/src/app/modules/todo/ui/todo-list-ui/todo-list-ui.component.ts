@@ -17,18 +17,23 @@ export class TodoListUiComponent implements OnInit {
   @Output()
   toggle = new EventEmitter<number>()
 
+  @Output()
+  edit = new EventEmitter<{ id: number, name: string }>()
+
   constructor() { }
 
   onDelete(id: number){
     this.delete.emit(id);
   }
 
-  onToggle(event:Event, id:number){
-    event.preventDefault();
+  onToggle(id:number){
     this.toggle.emit(id);
   }
 
   ngOnInit() {
   }
 
+  onEdit(name: string, id: number) {
+    this.edit.emit({id, name});
+  }
 }
